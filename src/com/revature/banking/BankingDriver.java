@@ -1,9 +1,8 @@
 package com.revature.banking;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.sql.SQLOutput;
+import com.revature.banking.models.AppUser;
+
+import java.io.*;
 
 public class BankingDriver {
     /*
@@ -23,7 +22,7 @@ public class BankingDriver {
      *      - transfer money between accounts
      */
 
-    static BufferedReader consoleReader = new BufferedReader(new InputStreamReader(System.in));
+    static BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
     public static void main(String[] args) {
 
@@ -40,7 +39,7 @@ public class BankingDriver {
             String userSelection = null;
 
             try {
-                userSelection = consoleReader.readLine();
+                userSelection = reader.readLine();
                 System.out.println("User selected: " + userSelection); //BREAD CRUMB STATEMENT
 
                 switch (userSelection) {
@@ -62,7 +61,7 @@ public class BankingDriver {
             }
         }
         try {
-            consoleReader.close();
+            reader.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -76,18 +75,25 @@ public class BankingDriver {
         System.out.println("Please provide us with some basic information");
 
         System.out.print("First name: ");
-        String firstName = consoleReader.readLine();
+        String firstName = reader.readLine();
         System.out.print("Last name: ");
-        String lastName = consoleReader.readLine();
+        String lastName = reader.readLine();
         System.out.print("Email: ");
-        String email = consoleReader.readLine();
+        String email = reader.readLine();
         System.out.print("Username: ");
-        String username = consoleReader.readLine();
+        String username = reader.readLine();
         System.out.print("Password: ");
-        String password = consoleReader.readLine();
+        String password = reader.readLine();
 
         System.out.printf("Provided user info: { \"firstName\": %s, \"lastName\": %s, \"email\": %s, \"username\": %s, \"password\": %s }\n",
-                firstName, lastName, email, username, password); //BREAD CRUMB STATMENT
+                firstName, lastName, email, username, password); //BREAD CRUMB STATEMENT
 
+        AppUser newUser = new AppUser(firstName, lastName, email, username, password);
+        System.out.println("Newly created user: " + newUser); //BREAD CRUMB STATEMENT
+
+        File usersFile = new File("resources/data.txt");
+        FileWriter fileWriter = new FileWriter(usersFile, true);
+        fileWriter.write(newUser.toFileString()+ "\n");
+        fileWriter.close();
     }
 }
