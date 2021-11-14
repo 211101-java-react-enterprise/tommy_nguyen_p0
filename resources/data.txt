@@ -1,3 +1,2 @@
-Tommy:Nguyen:tommy.n@revature.net:tommyn:password
-Tommy:Le:tommy.l@revature.net:tommyl:password
-Tester:McTest:tester.m@revature.net:testerm:password
+826964d4-e830-4f6f-bb47-b9d009f9e49b:Tommy:Nguyen:tommy.n@revature.net:tommyn:password
+683c082b-035d-44ff-9ceb-0366fd3fd552:Calvin:Nguyen:calvin.n@revature.net:calvinn:password

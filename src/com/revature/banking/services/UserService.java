@@ -1,40 +1,44 @@
 package com.revature.banking.services;
 
+import com.revature.banking.daos.AppUserDAO;
 import com.revature.banking.exceptions.InvalidRequestException;
+import com.revature.banking.exceptions.ResourcePersistenceException;
 import com.revature.banking.models.AppUser;
-
-import java.io.File;
-import java.io.FileWriter;
 
 public class UserService {
 
+    private AppUserDAO userDAO = new AppUserDAO();
 
     public boolean registerNewUser(AppUser newUser) {
         if (!isUserValid(newUser)) {
             throw new InvalidRequestException("Invalid user data provide.");
         }
 
+
         //TODO: write logic that verifies that the new user's username and email are not already taken
 
-        //TODO: Need to move to DAO Pattern Logic
-        try {
-            File usersFile = new File("resources/data.txt");
-            FileWriter fileWriter = new FileWriter(usersFile, true);
-            fileWriter.write(newUser.toFileString() + "\n");
-            fileWriter.close();
-        }catch (Exception e){
-            e.printStackTrace();
-            return false;
+        AppUser registeredUser = userDAO.save(newUser);
+        if (registeredUser == null) {
+            throw new ResourcePersistenceException("The user could not be persisted to the datasource!");
         }
+
         return true;
     }
 
-    //TODO: Implement
-    public AppUser authenicateUser(String username, String password) {
-        return null;
+    //TODO: split up username and password invalidation to be more specific
+    public AppUser authenticateUser(String username, String password) {
+        if (username == null || username.trim().equals("") || password == null || password.trim().equals("")) {
+            throw new InvalidRequestException("Invalid Credentials Provided");
+        }
+        AppUser authenticatedUser = userDAO.findUserByUsernameAndPassword(username, password);
+        if (authenticatedUser != null) {
+            return authenticatedUser;
+        }
+        //create your own authenticated exception here
+        throw new RuntimeException("No account found with provided credentials");
     }
 
-    //TODO: Implement accordingly to BANK (figure out what needs to be included in registration)
+    //TODO: Implement accordingly to BANK (figure out what needs to be included in registration) make sure it matches the requirements on database
     public boolean isUserValid(AppUser user) {
         if (user == null) return false;
         if (user.getFirstName() == null || user.getFirstName().trim().equals("")) return false;

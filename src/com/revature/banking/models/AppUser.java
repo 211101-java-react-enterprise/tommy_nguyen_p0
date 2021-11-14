@@ -5,7 +5,7 @@ import java.util.Objects;
 /*
     POJO : simple encapsulation of data. they do not have rich features, they simply hold related values.
  */
-public class Customer {
+public class AppUser {
 
     private String id;
     private String firstName;
@@ -14,7 +14,7 @@ public class Customer {
     private String username;
     private String password;
 
-    public Customer(String firstName, String lastName, String email, String username, String password) {
+    public AppUser(String firstName, String lastName, String email, String username, String password) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -85,7 +85,7 @@ public class Customer {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Customer appUser = (Customer) o;
+        AppUser appUser = (AppUser) o;
         return Objects.equals(id, appUser.id) && Objects.equals(firstName, appUser.firstName) && Objects.equals(lastName, appUser.lastName) && Objects.equals(email, appUser.email) && Objects.equals(username, appUser.username) && Objects.equals(password, appUser.password);
     }
 

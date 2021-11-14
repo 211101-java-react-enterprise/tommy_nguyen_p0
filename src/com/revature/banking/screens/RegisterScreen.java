@@ -1,17 +1,17 @@
 package com.revature.banking.screens;
 
+import com.revature.banking.exceptions.InvalidRequestException;
+import com.revature.banking.exceptions.ResourcePersistenceException;
 import com.revature.banking.models.AppUser;
 import com.revature.banking.services.UserService;
 import com.revature.banking.util.ScreenRouter;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileWriter;
 
 public class RegisterScreen extends Screen {
 
     // why not in screen class? well do all screens need a userService???
-    private UserService userService;
+    private final UserService userService;
 
     public RegisterScreen(BufferedReader reader, ScreenRouter router, UserService userService) {
         super("RegisterScreen", "/register", reader, router);
@@ -38,12 +38,13 @@ public class RegisterScreen extends Screen {
                 firstName, lastName, email, username, password); //BREAD CRUMB STATEMENT
 
         AppUser newUser = new AppUser(firstName, lastName, email, username, password);
-        boolean registerSuccessful = userService.registerNewUser(newUser);
-
-        if (registerSuccessful) {
-            //TODO: naivgate it to dashboard or do something for the bank
-        } else {
+        try {
+            userService.registerNewUser(newUser);
+            System.out.println(newUser);
+        } catch (InvalidRequestException e) {
             System.out.println("You have provided invalid data. Please try again.");
+        } catch (ResourcePersistenceException e) {
+            System.out.println("There was an issue when trying to persist the user to the datasource");
         }
 
 
