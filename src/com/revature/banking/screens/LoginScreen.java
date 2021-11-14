@@ -1,9 +1,11 @@
 package com.revature.banking.screens;
 
+import com.revature.banking.exceptions.InvalidRequestException;
 import com.revature.banking.models.AppUser;
 import com.revature.banking.services.UserService;
 import com.revature.banking.util.ScreenRouter;
 
+import javax.naming.AuthenticationException;
 import java.io.BufferedReader;
 
 public class LoginScreen extends Screen {
@@ -24,9 +26,10 @@ public class LoginScreen extends Screen {
         String password = reader.readLine();
 
         try {
-            AppUser user = userService.authenticateUser(username, password);
-        } catch (RuntimeException e) {
-            System.out.println("Could not authenticate using provided credentials. Navigating back to Welcome Screen...");
+            userService.authenticateUser(username, password);
+            router.navigate("/dashboard");
+        } catch (InvalidRequestException | AuthenticationException e) {
+            System.out.println(e.getMessage());
         }
     }
 }

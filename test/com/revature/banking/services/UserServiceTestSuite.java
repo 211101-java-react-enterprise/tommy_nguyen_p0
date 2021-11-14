@@ -12,7 +12,8 @@ public class UserServiceTestSuite {
 
     @Before
     public void testCaseSetup() {
-        sut = new UserService();
+        //TODO fix test following login refactor
+        sut = new UserService(null);
     }
 
     @Test

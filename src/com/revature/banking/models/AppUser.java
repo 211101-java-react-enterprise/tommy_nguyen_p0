@@ -22,6 +22,10 @@ public class AppUser {
         this.password = password;
     }
 
+    public AppUser() {
+        super();
+    }
+
     public String getId() {
         return id;
     }
