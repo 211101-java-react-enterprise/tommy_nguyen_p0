@@ -6,13 +6,17 @@ public class Account {
 
     private String id;
     private String accountType;
-    private AppUser accountOwner;
+    private String accountOwner_Id;
     private Double accountBalance;
 
     public Account(String accountType, AppUser accountOwner, Double accountBalance) {
         this.accountType = accountType;
-        this.accountOwner = accountOwner;
+        this.accountOwner_Id = accountOwner.getId();
         this.accountBalance = accountBalance;
+    }
+
+    public Account() {
+        super();
     }
 
     public String getId() {
@@ -31,12 +35,12 @@ public class Account {
         this.accountType = accountType;
     }
 
-    public AppUser getAccountOwner() {
-        return accountOwner;
+    public String getAccountOwner_Id() {
+        return accountOwner_Id;
     }
 
-    public void setAccountOwner(AppUser accountOwner) {
-        this.accountOwner = accountOwner;
+    public void setAccountOwner_Id(String accountOwner_Id) {
+        this.accountOwner_Id = accountOwner_Id;
     }
 
     public Double getAccountBalance() {
@@ -52,12 +56,12 @@ public class Account {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Account account = (Account) o;
-        return Objects.equals(id, account.id) && Objects.equals(accountType, account.accountType) && Objects.equals(accountOwner, account.accountOwner) && Objects.equals(accountBalance, account.accountBalance);
+        return Objects.equals(id, account.id) && Objects.equals(accountType, account.accountType) && Objects.equals(accountOwner_Id, account.accountOwner_Id) && Objects.equals(accountBalance, account.accountBalance);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, accountType, accountOwner, accountBalance);
+        return Objects.hash(id, accountType, accountOwner_Id, accountBalance);
     }
 
     @Override
@@ -65,7 +69,7 @@ public class Account {
         return "Account{" +
                 "id='" + id + '\'' +
                 ", accountType='" + accountType + '\'' +
-                ", accountOwner=" + accountOwner +
+                ", accountOwner=" + accountOwner_Id +
                 ", accountBalance=" + accountBalance +
                 '}';
     }
