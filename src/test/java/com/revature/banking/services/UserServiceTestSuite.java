@@ -2,6 +2,7 @@ package com.revature.banking.services;
 
 import com.revature.banking.daos.AppUserDAO;
 import com.revature.banking.exceptions.InvalidRequestException;
+import com.revature.banking.exceptions.ResourcePersistenceException;
 import com.revature.banking.models.AppUser;
 import org.junit.Assert;
 import org.junit.Before;
@@ -69,14 +70,38 @@ public class UserServiceTestSuite {
         verify(mockUserDAO, times(1)).save(validUser);
     }
 
-    @Test
+    @Test (expected = ResourcePersistenceException.class)
     public void test_registerNewUser_throwsResourcePersistenceException_givenValidUserWithTakenUsername() {
+        //Arrange
+        AppUser validUser = new AppUser("Tommy", "Nguyen", "tommy.n@revature.net", "tommyn", "password");
+        when(mockUserDAO.findUserByUsername(validUser.getUsername())).thenReturn(new AppUser());
+        when(mockUserDAO.findUserByEmail(validUser.getEmail())).thenReturn(null);
+        when(mockUserDAO.save(validUser)).thenReturn(validUser);
 
+        //Act
+        try {
+            boolean actualResult = sut.registerNewUser(validUser);
+        } finally {
+            //Assert
+            verify(mockUserDAO, times(0)).save(validUser);
+        }
     }
 
-    @Test
+    @Test (expected = ResourcePersistenceException.class)
     public void test_registerNewUser_throwsResourcePersistenceException_givenValidUserWithTakenEmail() {
+        //Arrange
+        AppUser validUser = new AppUser("Tommy", "Nguyen", "tommy.n@revature.net", "tommyn", "password");
+        when(mockUserDAO.findUserByUsername(validUser.getUsername())).thenReturn(new AppUser());
+        when(mockUserDAO.findUserByEmail(validUser.getEmail())).thenReturn(null);
+        when(mockUserDAO.save(validUser)).thenReturn(validUser);
 
+        //Act
+        try {
+            boolean actualResult = sut.registerNewUser(validUser);
+        } finally {
+            //Assert
+            verify(mockUserDAO, times(0)).save(validUser);
+        }
     }
 
     @Test (expected = InvalidRequestException.class)
