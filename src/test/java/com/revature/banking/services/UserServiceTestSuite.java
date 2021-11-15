@@ -1,19 +1,25 @@
 package com.revature.banking.services;
 
+import com.revature.banking.daos.AppUserDAO;
 import com.revature.banking.exceptions.InvalidRequestException;
 import com.revature.banking.models.AppUser;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mockito;
+
+import static org.mockito.Mockito.*;
 
 public class UserServiceTestSuite {
 
     UserService sut; //system under test
+    AppUserDAO mockUserDAO;
 
     @Before
     public void testCaseSetup() {
         //TODO fix test following login refactor
-        sut = new UserService(null);
+        mockUserDAO = Mockito.mock(AppUserDAO.class);
+        sut = new UserService(mockUserDAO);
     }
 
     @Test
@@ -47,18 +53,32 @@ public class UserServiceTestSuite {
         Assert.assertFalse("Expected user to be considered false", actualResult_3);
     }
 
-    //TODO: correct implementation so that UserService#registerNewUser is tested in isolation (mock/fake the AppUserDAO)
     @Test
     public void test_registerNewUser_returnTrue_givenValidUser() {
         //Arrange
         AppUser validUser = new AppUser("Tommy", "Nguyen", "tommy.n@revature.net", "tommyn", "password");
+        when(mockUserDAO.findUserByUsername(validUser.getUsername())).thenReturn(null);
+        when(mockUserDAO.findUserByEmail(validUser.getEmail())).thenReturn(null);
+        when(mockUserDAO.save(validUser)).thenReturn(validUser);
 
         //Act
         boolean actualResult = sut.registerNewUser(validUser);
 
         //Assert
         Assert.assertTrue("Expected result to be true with valid user provided.",actualResult);
+        verify(mockUserDAO, times(1)).save(validUser);
     }
+
+    @Test
+    public void test_registerNewUser_throwsResourcePersistenceException_givenValidUserWithTakenUsername() {
+
+    }
+
+    @Test
+    public void test_registerNewUser_throwsResourcePersistenceException_givenValidUserWithTakenEmail() {
+
+    }
+
     @Test (expected = InvalidRequestException.class)
     public void test_registerNewUser_throwsInvalidRequestException_givenInvalidUser() {
         sut.registerNewUser(null);

@@ -1,6 +1,7 @@
 package com.revature.banking.util;
 
 
+import com.revature.banking.daos.AppUserDAO;
 import com.revature.banking.models.AppUser;
 import com.revature.banking.screens.DashboardScreen;
 import com.revature.banking.screens.LoginScreen;
@@ -27,8 +28,8 @@ public class AppState {
         router = new ScreenRouter();
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
-        AppUser sessionUser = null;
-        UserService userService = new UserService(sessionUser);
+        AppUserDAO userDAO = new AppUserDAO();
+        UserService userService = new UserService(userDAO);
         //TODO: add other screens to router (Login, Welcome, Dashboard)
         router.addScreen(new WelcomeScreen(reader, router));
         router.addScreen(new RegisterScreen(reader, router, userService));

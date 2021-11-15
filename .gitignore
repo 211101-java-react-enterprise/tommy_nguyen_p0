@@ -9,3 +9,6 @@ out/
 
 #Properties files
 *.properties
+
+#Target folder
+*/target/*

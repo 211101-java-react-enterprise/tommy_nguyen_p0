@@ -9,11 +9,12 @@ import javax.naming.AuthenticationException;
 
 public class UserService {
 
-    private AppUserDAO userDAO = new AppUserDAO();
+    private final AppUserDAO userDAO;
     private AppUser sessionUser;
 
-    public UserService(AppUser sessionUser) {
-        this.sessionUser = sessionUser;
+    public UserService(AppUserDAO userDAO) {
+        this.sessionUser = null;
+        this.userDAO = userDAO;
     }
 
     public AppUser getSessionUser() {
