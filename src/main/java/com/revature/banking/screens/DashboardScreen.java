@@ -29,8 +29,8 @@ public class DashboardScreen extends Screen{
         while (userService.isSessionActive()) {
             System.out.printf("\n%s's Dashboard\n", sessionUser.getFirstName());
 
-            String menu = "1) View/edit my profile information\n" +
-                    "2) View/create accounts\n" +
+            String menu = "1) Create a new account\n" +
+                    "2) View/make account transactions\n" +
                     "3) logout\n" +
                     "> ";
             System.out.print(menu);
@@ -39,7 +39,8 @@ public class DashboardScreen extends Screen{
 
             switch (userSelection) {
                 case "1":
-                    System.out.println("View/edit profile selected.");
+                    System.out.println("User selected create a new account");
+                    router.navigate("/createaccount");
                     break;
                 case "2":
                     System.out.println("View/create accounts selected");
