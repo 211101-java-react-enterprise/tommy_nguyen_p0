@@ -1,4 +1,4 @@
-package com.revature.banking.util;
+package com.revature.banking.util.datasource;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -34,7 +34,7 @@ public class ConnectionFactory {
 
     private ConnectionFactory() {
         try {
-            props.load(new FileReader("resources/db.properties"));
+            props.load(new FileReader("src/main/resources/db.properties"));
         } catch (IOException e){
             e.printStackTrace();
         }

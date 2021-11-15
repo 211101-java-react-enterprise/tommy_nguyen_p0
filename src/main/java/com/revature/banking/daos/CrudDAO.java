@@ -1,6 +1,6 @@
 package com.revature.banking.daos;
 
-import com.revature.banking.util.List;
+import com.revature.banking.util.collections.List;
 
 //CRUD: Create, Read, Update, Delete
 public interface CrudDAO<T> {

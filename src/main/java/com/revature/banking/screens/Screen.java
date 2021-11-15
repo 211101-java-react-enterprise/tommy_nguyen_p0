@@ -1,11 +1,13 @@
 package com.revature.banking.screens;
 
 import com.revature.banking.util.ScreenRouter;
+import com.revature.banking.util.logging.Logger;
 
 import java.io.BufferedReader;
 
 public abstract class Screen {
 
+    protected Logger logger = Logger.getLogger(true);
     protected String name;
     protected String route;
     protected BufferedReader reader;

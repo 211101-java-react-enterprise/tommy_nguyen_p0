@@ -8,6 +8,7 @@ import com.revature.banking.screens.LoginScreen;
 import com.revature.banking.screens.RegisterScreen;
 import com.revature.banking.screens.WelcomeScreen;
 import com.revature.banking.services.UserService;
+import com.revature.banking.util.logging.Logger;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -20,10 +21,15 @@ import java.io.InputStreamReader;
         - a boolean that indicates if the app is still running or not.
  */
 public class AppState {
+    private final Logger logger;
     private static boolean appRunning;
     private final ScreenRouter router;
 
     public AppState() {
+
+        logger = Logger.getLogger(true);
+        logger.log("Initializing application...");
+
         appRunning = true;
         router = new ScreenRouter();
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
@@ -35,6 +41,8 @@ public class AppState {
         router.addScreen(new RegisterScreen(reader, router, userService));
         router.addScreen(new LoginScreen(reader, router, userService));
         router.addScreen(new DashboardScreen(reader, router, userService));
+
+        logger.log("Application initialized");
     }
 
     public void startup() {

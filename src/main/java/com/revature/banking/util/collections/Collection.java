@@ -1,4 +1,4 @@
-package com.revature.banking.util;
+package com.revature.banking.util.collections;
 
 public interface Collection<T> {
 
