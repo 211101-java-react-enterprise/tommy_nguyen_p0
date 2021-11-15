@@ -39,11 +39,11 @@ public class AccountDAO implements CrudDAO<Account>{
     }
 
     //why does this have to be static? does it mess anything else up?
-    public static Account findAccountTypeByAccountOwnerId(String accountOwnerID) {
+    public Account findAccountTypeByAccountOwnerId(String accountOwnerID) {
 
         try(Connection conn = ConnectionFactory.getInstance().getConnection()) {
 
-            String sql = "select * from app_users where accountOwnerID = ?";
+            String sql = "select * from user_accounts where account_owner_id = ?";
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, accountOwnerID);
             ResultSet rs = pstmt.executeQuery();

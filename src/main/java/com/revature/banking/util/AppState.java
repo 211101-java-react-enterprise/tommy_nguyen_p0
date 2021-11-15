@@ -1,9 +1,11 @@
 package com.revature.banking.util;
 
 
+import com.revature.banking.daos.AccountDAO;
 import com.revature.banking.daos.AppUserDAO;
 import com.revature.banking.models.AppUser;
 import com.revature.banking.screens.*;
+import com.revature.banking.services.AccountService;
 import com.revature.banking.services.UserService;
 import com.revature.banking.util.logging.Logger;
 
@@ -33,12 +35,14 @@ public class AppState {
 
         AppUserDAO userDAO = new AppUserDAO();
         UserService userService = new UserService(userDAO);
+        AccountDAO accountDAO = new AccountDAO();
+        AccountService accountService = new AccountService(accountDAO);
         //TODO: add other screens to router (Login, Welcome, Dashboard)
         router.addScreen(new WelcomeScreen(reader, router));
         router.addScreen(new RegisterScreen(reader, router, userService));
         router.addScreen(new LoginScreen(reader, router, userService));
         router.addScreen(new DashboardScreen(reader, router, userService));
-        router.addScreen(new CreateBankAccountScreen(reader, router, userService));
+        router.addScreen(new CreateBankAccountScreen(reader, router, userService, accountService));
 
         logger.log("Application initialized");
     }
