@@ -48,9 +48,9 @@ public class AccountService {
             throw new InvalidRequestException("Invalid user data provide.");
         }
 
-        boolean checkingAvailable = accountDAO.findAccountTypeByAccountOwnerId(newSavingsAccount.getAccountOwner_Id()) == null;
+        boolean savingsAvailable = accountDAO.findAccountTypeByAccountOwnerId(newSavingsAccount.getAccountOwner_Id()) == null;
 
-        if(!checkingAvailable) {
+        if(!savingsAvailable) {
             throw new ResourcePersistenceException("User already has a savings account made");
         }
 

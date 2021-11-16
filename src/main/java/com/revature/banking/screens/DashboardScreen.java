@@ -30,7 +30,7 @@ public class DashboardScreen extends Screen{
             System.out.printf("\n%s's Dashboard\n", sessionUser.getFirstName());
 
             String menu = "1) Create a new account\n" +
-                    "2) View/make account transactions\n" +
+                    "2) View accounts\n" +
                     "3) logout\n" +
                     "> ";
             System.out.print(menu);
@@ -43,7 +43,8 @@ public class DashboardScreen extends Screen{
                     router.navigate("/createaccount");
                     break;
                 case "2":
-                    System.out.println("View/create accounts selected");
+                    System.out.println("View accounts selected");
+                    router.navigate("/viewaccount");
                     break;
                 case "3":
                     userService.logout();

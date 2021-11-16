@@ -43,6 +43,9 @@ public class AppState {
         router.addScreen(new LoginScreen(reader, router, userService));
         router.addScreen(new DashboardScreen(reader, router, userService));
         router.addScreen(new CreateBankAccountScreen(reader, router, userService, accountService));
+        router.addScreen(new ViewBankAccountScreen(reader, router, userService,accountService));
+        router.addScreen(new CheckingScreen(reader, router, userService,accountService));
+        router.addScreen(new SavingsScreen(reader, router, userService,accountService));
 
         logger.log("Application initialized");
     }
