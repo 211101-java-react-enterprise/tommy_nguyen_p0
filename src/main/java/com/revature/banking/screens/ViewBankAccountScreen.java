@@ -47,7 +47,6 @@ public class ViewBankAccountScreen extends Screen{
             switch (userSelection) {
                 case "1":
                     System.out.println("User selected view checking account");
-                    if (acco)
                     break;
                 case "2":
                     System.out.println("User selected view savings account");
